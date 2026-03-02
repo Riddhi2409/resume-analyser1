@@ -55,8 +55,8 @@ public class successHandler implements AuthenticationSuccessHandler {
                 .path("/")
                 .httpOnly(true)
                 .maxAge(20 * 24 * 60 * 60)
-                .sameSite("Strict")
-                .secure(false)
+                .sameSite("None")
+                .secure(true)
                 .build();
         response.addHeader("Set-Cookie", cookie.toString());
 
