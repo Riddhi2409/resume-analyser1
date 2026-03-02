@@ -60,6 +60,8 @@ public class successHandler implements AuthenticationSuccessHandler {
                 .build();
         response.addHeader("Set-Cookie", cookie.toString());
 
+        System.out.println("COOKIE SENT:  from successHandler: " + cookie.toString());
+
         // Return JSON instead of redirect
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
