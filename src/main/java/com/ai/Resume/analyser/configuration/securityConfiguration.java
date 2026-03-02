@@ -36,26 +36,23 @@ public class securityConfiguration {
     private failureHandler failureHandler;
 
     @Bean
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    return http
-            .authorizeHttpRequests(requests -> requests
-                    .requestMatchers(
-                            "/",
-                            "/login",
-                            "/assets/**"
-                    ).permitAll()
-                    .anyRequest().authenticated()
-            )
-            .csrf(AbstractHttpConfigurer::disable)
-            .cors(Customizer.withDefaults())
-            .exceptionHandling(exception -> exception
-                    .authenticationEntryPoint((request, response, authException) -> {
-                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                        response.getWriter().write("Unauthorized");
-                    })
-            )
-            .build();
-}
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeHttpRequests(requests-> requests
+                        .requestMatchers("/resumeAnalyser/entry/v1/**","/","/login","/forgotpassword","/static/**","/index.html","/manifest.json","/assets/**")
+                        .permitAll()
+                        .anyRequest().authenticated())
+                .cors(Customizer.withDefaults())
+                .csrf(AbstractHttpConfigurer::disable)
+                .logout(AbstractHttpConfigurer::disable)
+                .addFilterBefore(jwtfilter, UsernamePasswordAuthenticationFilter.class)
+                .oauth2Login(oauth ->oauth
+                        .loginPage("/login")
+                        .successHandler(successHandler)
+                        .failureHandler(failureHandler))
+                .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
+    }
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
