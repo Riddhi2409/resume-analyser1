@@ -103,6 +103,7 @@ public class securityService {
             usersTable user =usersTableRepository.findById(req.getEmail()).orElse(null);
             HttpHeaders headers = new HttpHeaders();
             ResponseCookie cookie= ResponseCookie.from("entrypasstoken",token).path("/").httpOnly(true).maxAge(20*24*60*60).sameSite("None").secure(true).build();
+            System.out.println("COOKIE SENT: from Security Service: " + cookie.toString());
             headers.add(HttpHeaders.SET_COOKIE,cookie.toString());
             loginResponse loginRes=new loginResponse(user.getUsername(), user.getPreviousResults());
             return new ResponseEntity<>(loginRes,headers,HttpStatus.OK);
