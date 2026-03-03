@@ -63,9 +63,9 @@ public class successHandler implements AuthenticationSuccessHandler {
         System.out.println("COOKIE SENT:  from successHandler: " + cookie.toString());
 
         // Return JSON instead of redirect
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write("{\"token\":\"" + token + "\", \"email\":\"" + email + "\"}");
+         String frontendUrl = "https://localhost:5173/oauth-success?token=" + token;
+
+    response.sendRedirect(frontendUrl);
 
 
 
