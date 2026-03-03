@@ -39,6 +39,11 @@ public class jwtFilter extends OncePerRequestFilter {
         String token = null;
         usersTable user = null;
         String reqUri=request.getRequestURI();
+        if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
+        filterChain.doFilter(request, response);
+        return;
+    }
+
         if(reqUri.startsWith("/resumeAnalyser/entry/v1") || reqUri.equals("/") || reqUri.equals("/login") || reqUri.equals("/forgotpassword")){
             filterChain.doFilter(request,response);
             return;
