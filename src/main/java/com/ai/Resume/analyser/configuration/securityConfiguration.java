@@ -39,6 +39,7 @@ public class securityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(requests-> requests
+                                       .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/resumeAnalyser/entry/v1/**","/","/login","/forgotpassword","/static/**","/index.html","/manifest.json","/assets/**")
                         .permitAll()
                         .anyRequest().authenticated())
