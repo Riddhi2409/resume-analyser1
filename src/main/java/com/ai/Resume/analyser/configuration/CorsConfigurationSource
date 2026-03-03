@@ -1,0 +1,20 @@
+@Bean
+public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    
+    // 1. Allow your specific frontend domain
+    configuration.setAllowedOrigins(Arrays.asList("https://riddhi-resume-analyser.netlify.app"));
+    
+    // 2. Allow the HTTP methods your app uses
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    
+    // 3. Allow headers (Authorization is critical for your JWT filter)
+    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+    
+    // 4. Allow credentials if you need to send cookies or Auth headers
+    configuration.setAllowCredentials(true);
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+}
