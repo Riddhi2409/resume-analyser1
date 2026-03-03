@@ -63,7 +63,7 @@ public class successHandler implements AuthenticationSuccessHandler {
         System.out.println("COOKIE SENT:  from successHandler: " + cookie.toString());
 
         // Return JSON instead of redirect
-         String frontendUrl = "https://localhost:5173";
+         String frontendUrl = "https://riddhi-resume-analyser.netlify.app/";
 
     response.sendRedirect(frontendUrl);
 
